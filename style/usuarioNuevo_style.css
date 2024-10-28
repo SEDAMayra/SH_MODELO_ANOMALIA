@@ -1,0 +1,84 @@
+img {
+    max-width: 100%; /* El logo no será más grande que el contenedor */
+    height: auto;
+}
+
+html, body, [data-testid="stAppViewContainer"] {
+    background-color: #0b5394; /* Color azul */
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Evita el desplazamiento */
+}
+
+div[data-testid="stForm"] {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Permite que el formulario se ajuste al tamaño de la pantalla */
+    max-width: 400px; /* Máximo ancho del formulario */
+    min-width: 300px; /* Mínimo ancho para mantener legibilidad */
+    text-align: left; /* Ajusta la alineación a la izquierda */
+    margin: 0 auto; /* Centra el formulario horizontalmente */
+}
+
+body {
+    background-color: #0A74DA; /* Azul oscuro */
+}
+
+input {
+    color: black; /* Cambiar color del texto dentro del campo */
+    font-size: 16px;
+    background-color: #e6f3ff; /* Color claro de fondo en el campo de entrada */
+    width: 100%; /* Asegura que los campos de entrada ocupen todo el ancho disponible */
+    box-sizing: border-box; /* Incluye el padding y el borde dentro del ancho total */
+}
+
+input:focus {
+    border: 2px solid #1f7aef; /* Borde azul brillante cuando está enfocado */
+    outline: none;
+    box-shadow: 0 0 5px rgba(31, 122, 239, 0.5); /* Efecto de resplandor alrededor */
+}
+
+.container {
+    padding: 20px;
+    width: 100%; /* Asegura que el contenedor se ajuste a la pantalla */
+    max-width: 400px; /* Máximo ancho del contenedor */
+    margin: auto; /* Centra el contenedor */
+}
+
+/* Ajuste del margen entre el checkbox y el enlace */
+a {
+    color: #1f7aef;
+    text-decoration: none;
+    font-size: 14px;
+    margin-top: -5px; /* Ajuste fino para reducir el espacio entre el checkbox y el enlace */
+    display: inline-block; /* Asegura que el ajuste de margen sea aplicado correctamente */
+}
+
+a:hover {
+    text-decoration: underline; /* Añade un subrayado al pasar el cursor */
+}
+
+
+/* Ajuste para que el enlace esté en la misma línea que el texto */
+.checkbox-container {
+    display: flex;
+    align-items: center; /* Alinea verticalmente el checkbox y el texto */
+}
+
+
+
+/* Ocultar barra superior de Streamlit */
+header[data-testid="stHeader"] {
+    display: none;
+}
+
+/* Ocultar footer */
+footer {
+    display: none;
+}

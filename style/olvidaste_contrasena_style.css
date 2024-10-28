@@ -1,0 +1,55 @@
+img {
+    max-width: 100%; /* El logo no será más grande que el contenedor */
+    height: auto;
+}
+html, body, [data-testid="stAppViewContainer"] {
+    background-color: #0b5394; /* Color azul */
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;  /* Centra horizontalmente */
+    align-items: center;      /* Centra verticalmente */
+}
+/* Estilo general del formulario */
+div[data-testid="stForm"] {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 350px; /* Ajusta el ancho */
+    text-align: left; /* Ajusta la alineación a la izquierda */
+    margin: auto; /* Centra el formulario horizontalmente */
+}
+/* Cambiar el color de fondo */
+body {
+    background-color: #0A74DA; /* Azul oscuro */
+}
+
+input {
+    color: black; /* Cambiar color del texto dentro del campo */
+    font-size: 16px;
+    background-color: #e6f3ff; /* Color claro de fondo en el campo de entrada */
+}
+
+input:focus {
+    border: 2px solid #1f7aef; /* Borde azul brillante cuando está enfocado */
+    outline: none;
+    box-shadow: 0 0 5px rgba(31, 122, 239, 0.5); /* Efecto de resplandor alrededor */
+}
+
+/* Ajustar la sección principal para que no se vea tan apretada */
+.container {
+    padding: 20px;
+}
+
+
+/* Ocultar barra superior de Streamlit */
+header[data-testid="stHeader"] {
+    display: none;
+}
+
+/* Ocultar footer */
+footer {
+    display: none;
+}

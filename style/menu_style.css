@@ -1,0 +1,57 @@
+/* Fondo del menú lateral en blanco */
+.css-1aumxhk {
+    background-color: #ffffff; /* Blanco para el menú lateral */
+    padding-top: 20px;
+    color: #0E497D; /* Texto en azul */
+}
+/* Fondo de toda la página y del contenido en azul oscuro */
+body, .main, .stApp {
+    background-color: #0B5394; /* Fondo azul oscuro para toda la página */
+    color: white; /* Texto blanco */
+    margin: 0;
+}
+/* Fondo de la sección de contenido */
+.block-container {
+    background-color: #0B5394; /* Azul oscuro */
+    color: white; /* Texto blanco */
+    padding: 20px;
+    height: 100%;
+    border-radius: 0; /* Sin bordes redondeados */
+}
+/* Botón seleccionado */
+button.selected {
+    background-color: #B0C4DE; /* Color rosado para el botón seleccionado */
+    color: rgb(14, 0, 0); /* Texto en blanco */
+    border-radius: 5px;
+    width: 100%;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border: none;
+}
+
+/* Otros botones no seleccionados */
+.stButton button {
+    background-color: #ffffff; /* Color blanco */
+    color: #110101; /* Texto en azul oscuro */
+    border-radius: 5px;
+    width: 100%;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border: none;
+}
+
+.stButton button:hover {
+    background-color: #B0C4DE; /* Fondo rosado al pasar el mouse */
+    color: rgb(15, 0, 0); /* Texto en blanco */
+    transition: 0.3s;
+}
+
+/* Ocultar barra superior de Streamlit */
+header[data-testid="stHeader"] {
+    display: none;
+}
+
+/* Ocultar footer */
+footer {
+    display: none;
+}
