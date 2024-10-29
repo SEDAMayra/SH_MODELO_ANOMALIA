@@ -2,4 +2,4 @@ streamlit
 pandas
 simpledbf
 dbfread
-psycopg2
+psycopg2-binary
