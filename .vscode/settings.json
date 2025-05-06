@@ -1,3 +1,35 @@
 {
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "cSpell.words": [
+        "archivo",
+        "carga",
+        "cargar",
+        "carpetas",
+        "codificación",
+        "conexion",
+        "correspondientes",
+        "desde",
+        "Forzar",
+        "Función",
+        "funciones",
+        "grafico",
+        "Importar",
+        "inicial",
+        "manejar",
+        "mapa",
+        "mostrar",
+        "navegación",
+        "nombre",
+        "nuevo",
+        "obtener",
+        "página",
+        "Parámetro",
+        "prediccion",
+        "registro",
+        "reporte",
+        "SEDAM",
+        "seguimiento",
+        "usuario",
+        "usuarios"
+    ]
 }

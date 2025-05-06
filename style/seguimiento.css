@@ -1,0 +1,49 @@
+/* Fila de encabezado */
+.header-row {
+    display: flex;
+    background-color: #E3F2FD;
+    font-weight: bold;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-top: 20px;
+}
+
+/* Fila de datos */
+.data-row {
+    display: flex;
+    background-color: #F7FBFF;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Celda individual */
+.cell {
+    flex: 1;
+    padding: 6px 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 15px;
+}
+
+/* Alinear y equilibrar la fila de cabecera */
+.header-table {
+    display: flex;
+    background-color: #00b4d8;
+    color: white;
+    font-weight: bold;
+    padding: 15px 10px; /* <--- más padding en arriba/abajo */
+    margin-top: 20px;
+    border-radius: 5px;
+    border: 1px solid white;
+    gap: 10px; /* <--- añade separación entre columnas */
+}
+
+/* Celda de la cabecera */
+.cell-header {
+    flex: 1;
+    text-align: center;
+    font-size: 16px; /* Un poquito más grande para mejor visibilidad */
+    padding: 10px 5px; /* <--- más espacio dentro de cada título */
+}
+

@@ -1,6 +1,28 @@
 import streamlit as st
+import os
 from PIL import Image
+from datetime import datetime
 import time
+import numpy as np
+from dotenv import load_dotenv
+load_dotenv()   # carga .env
+
+SMTP_SERVER = os.getenv("SMTP_SERVER", "smtp.gmail.com")
+SMTP_PORT   = int(os.getenv("SMTP_PORT", 587))
+SMTP_USER   = os.getenv("SMTP_USER")
+SMTP_PASS   = os.getenv("SMTP_PASS")
+
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+# Opcionalmente también:
+SMTP_SERVER = os.getenv("SMTP_SERVER", "smtp.gmail.com")
+SMTP_PORT   = int(os.getenv("SMTP_PORT", 587))
+
+# Configuration de la página
+st.set_page_config(page_title="EPS SEDAM Huancayo", page_icon=":droplet:", layout="centered", initial_sidebar_state="collapsed")
+
 # Importar funciones desde las carpetas correspondientes
 from manual.manual import mostrar_manual
 from carga.carga import mostrar_carga_datos
@@ -11,22 +33,29 @@ from reporte.reporte import mostrar_reporte
 from seguimiento.seguimiento import mostrar_seguimiento
 import psycopg2
 import re
+from conexion import obtener_conexion
+
+def enviar_correo_restablecimiento(destino, hora):
+    asunto = "Su contraseña ha sido restablecida"
+    cuerpo = f"""
+    Su contraseña ha sido restablecida exitosamente.
+
+    Fecha y hora: {hora}
+
+    Si usted no realizó esta acción, por favor póngase en contacto con soporte.
+    """
+    msg = MIMEMultipart()
+    msg["From"] = SMTP_USER
+    msg["To"] = destino
+    msg["Subject"] = asunto
+    msg.attach(MIMEText(cuerpo, "plain"))
+
+    with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
+        server.starttls()
+        server.login(SMTP_USER, SMTP_PASS)
+        server.send_message(msg)
 
 
-def obtener_conexion():
-    return psycopg2.connect(
-        host="localhost",
-        database="Datos_Modelo",
-        user="postgres",
-        password="1234",
-        port="5433"  # Especifica el puerto aquí, por ejemplo, "5433"
-    )
-
-
-# Configuración de la página
-st.set_page_config(page_title="EPS SEDAM Huancayo", page_icon=":droplet:", layout="centered", initial_sidebar_state="collapsed")
-
-# Función para cargar el archivo CSS
 # Función para cargar el archivo CSS
 def load_css(file_name):
     with open(file_name, 'r', encoding='utf-8') as f:  # Forzar la codificación utf-8
@@ -167,14 +196,19 @@ def mostrar_cambiar_contrasena():
             if nueva_contrasena == confirmar_contrasena:
                 if actualizar_contrasena(st.session_state.email, nueva_contrasena):
                     st.success("Contraseña cambiada con éxito.")
-                    time.sleep(1.3)  # Mostrar mensaje por 1.3 segundos
+
+                    # ─── Aquí disparas el correo ───
+                    hora_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    enviar_correo_restablecimiento(st.session_state.email, hora_actual)
+                    # ───────────────────────────────
+
+                    time.sleep(1.3)
                     st.session_state.pagina = 'login'
                     st.rerun()
                 else:
                     st.error("Error al cambiar la contraseña.")
             else:
                 st.error("Las contraseñas no coinciden.")
-
 # Función para validar el formato del correo electrónico
 def es_correo_valido(email):
     # Expresión regular para validar correos electrónicos
@@ -222,8 +256,6 @@ def mostrar_registro():
         if volver_login_button:
             st.session_state.pagina = 'login'
             st.rerun()
-
-
             
             
 def menu_principal():
@@ -279,8 +311,7 @@ def cambiar_seccion(seccion):
 def cerrar_sesion():
     st.session_state.pagina = 'login'
 
-        
-        
+    
 # Controlador de las pantallas
 if st.session_state.pagina == 'login':
     mostrar_login()

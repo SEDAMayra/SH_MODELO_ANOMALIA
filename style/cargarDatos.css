@@ -1,9 +1,34 @@
-/* Estilo para mensajes de éxito e información */
-div.stAlert > div[role="alert"] {
-    background-color: #ffffff !important; /* Fondo blanco */
-    color: #000000 !important; /* Texto negro */
-    border: 1px solid #dddddd; /* Borde gris claro */
-    border-radius: 5px; /* Bordes redondeados */
-    padding: 10px; /* Espaciado interno */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+/* Estilo para mensajes de éxito */
+.mensaje-exito {
+    color: #ffffff;
+    background-color: #28a745;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Estilo para mensajes de advertencia */
+.mensaje-advertencia {
+    color: #ffffff;
+    background-color: #ffcc00;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Ocultar el texto 'Sube un archivo DBF' */
+div[data-testid="stFileUploader"] label {
+    visibility: hidden;
+    height: 0;
+}
+
+/* Ajustar el espacio que deja el label */
+div[data-testid="stFileUploader"] {
+    margin-top: -10px;
 }
