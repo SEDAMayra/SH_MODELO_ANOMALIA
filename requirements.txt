@@ -47,7 +47,8 @@ packaging==24.1
 pandas==2.2.3
 pillow==10.4.0
 protobuf==5.28.3
-psycopg2==2.9.10
+#psycopg2==2.9.10
+psycopg2-binary==2.9.10
 pyarrow==17.0.0
 pydeck==0.9.1
 Pygments==2.18.0
@@ -72,7 +73,6 @@ tenacity==9.0.0
 tensorboard==2.18.0
 tensorboard-data-server==0.7.2
 tensorflow==2.18.0
-tensorflow_intel==2.18.0
 termcolor==2.5.0
 threadpoolctl==3.5.0
 toml==0.10.2
