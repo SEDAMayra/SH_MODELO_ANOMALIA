@@ -63,7 +63,7 @@ def load_css(file_name):
 
 # Parámetro para manejar la navegación entre login y registro
 if 'pagina' not in st.session_state:
-    st.session_state.pagina = 'login'  # Página inicial es el login
+    st.session_state.pagina = 'streamlit_app'  # Página inicial es el login
 
 
 # Función para registrar un nuevo usuario
@@ -180,7 +180,7 @@ def mostrar_olvidaste_contrasena():
                 st.error("El correo no está registrado.")
 
         if cancelar_button:
-            st.session_state.pagina = "login"
+            st.session_state.pagina = "streamlit_app"
             st.rerun()
 
 # Función para mostrar la pantalla de cambio de contraseña
@@ -203,7 +203,7 @@ def mostrar_cambiar_contrasena():
                     # ───────────────────────────────
 
                     time.sleep(1.3)
-                    st.session_state.pagina = 'login'
+                    st.session_state.pagina = 'streamlit_app'
                     st.rerun()
                 else:
                     st.error("Error al cambiar la contraseña.")
@@ -254,7 +254,7 @@ def mostrar_registro():
         # Botón para volver al login
         volver_login_button = st.form_submit_button(label="¿Ya tienes cuenta? Inicia sesión")
         if volver_login_button:
-            st.session_state.pagina = 'login'
+            st.session_state.pagina = 'streamlit_app'
             st.rerun()
             
             
@@ -309,11 +309,11 @@ def cambiar_seccion(seccion):
     # Cambiar el estado de la sección seleccionada
     st.session_state.seccion_seleccionada = seccion
 def cerrar_sesion():
-    st.session_state.pagina = 'login'
+    st.session_state.pagina = 'streamlit_app'
 
     
 # Controlador de las pantallas
-if st.session_state.pagina == 'login':
+if st.session_state.pagina == 'streamlit_app':
     mostrar_login()
 elif st.session_state.pagina == 'menu_principal':
     menu_principal()
