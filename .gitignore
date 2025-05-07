@@ -11,3 +11,5 @@ __pycache__/
 
 # Variables de entorno
 .env
+__pycache__/
+*.py[cod]
