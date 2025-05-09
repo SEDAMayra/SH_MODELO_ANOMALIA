@@ -269,7 +269,18 @@ def menu_principal():
         </style>
     """, unsafe_allow_html=True)
 
-    st.sidebar.image('imagenes/logo-sedam-huancayo.png', use_column_width=True)
+
+    img_path = "imagenes/logo-sedam-huancayo.png"
+
+    if os.path.exists(img_path):
+        try:
+            st.sidebar.image(img_path, use_container_width=True)
+        except TypeError:
+            st.sidebar.image(img_path, use_column_width=True)
+    else:
+        st.sidebar.warning("⚠ Imagen no encontrada: 'imagenes/logo.png'")
+
+
     # Definir las secciones del menú con iconos (pueden ser emojis o etiquetas HTML)
     secciones = {
         "💻 Manual": mostrar_manual,
