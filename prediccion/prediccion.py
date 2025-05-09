@@ -56,7 +56,7 @@ def enviar_notificacion_general(asunto: str, cuerpo: str, destinos: list[str]):
 @st.cache_resource
 def cargar_modelo():
     url = (
-        "https://modelosedam123.blob.core.windows.net/modelos/modelo_lstm_autoencoder.keras?sp=r&st=2025-05-07T01:16:03Z&se=2025-08-01T09:16:03Z&sip=190.233.31.53&spr=https&sv=2024-11-04&sr=b&sig=MjiOCLveCo8HxlLDOvKYYur4D6DgVQX5Eq%2BXymX443Q%3D"
+        "https://modelosedam123.blob.core.windows.net/modelos/modelo_lstm_autoencoder.keras?sp=r&st=2025-05-08T04:59:36Z&se=2025-06-30T12:59:36Z&sip=190.236.229.176&spr=https&sv=2024-11-04&sr=b&sig=7wAWgiKNbjO27qhj5s6s20BDuWYCh6ktIN%2BErl0LwuI%3D"
     )
     with tempfile.NamedTemporaryFile(delete=False, suffix=".keras") as tmp:
         tmp.write(requests.get(url).content)
