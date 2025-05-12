@@ -5,17 +5,19 @@ load_dotenv()                                 # ← Carga variables de entorno
 import smtplib                                 # ← Añadido para SMTP
 from email.mime.text import MIMEText           # ← Añadido
 from email.mime.multipart import MIMEMultipart # ← Añadido
-
+import tensorflow import
 import numpy as np
 import pandas as pd
-import streamlit as st
+import streamlit as 
 from tensorflow.keras.models import load_model
 from conexion import obtener_conexion
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
 import tempfile
 import requests
+
 from datetime import datetime                  # ← Añadido para timestamp
+
 
 # ---------------------------------------------------
 # Configuración SMTP (variables en tu .env)
@@ -56,7 +58,7 @@ def enviar_notificacion_general(asunto: str, cuerpo: str, destinos: list[str]):
 @st.cache_resource
 def cargar_modelo():
     url = (
-        "https://modelosedam123.blob.core.windows.net/modelos/modelo_lstm_autoencoder.keras?sp=r&st=2025-05-08T04:59:36Z&se=2025-06-30T12:59:36Z&sip=190.236.229.176&spr=https&sv=2024-11-04&sr=b&sig=7wAWgiKNbjO27qhj5s6s20BDuWYCh6ktIN%2BErl0LwuI%3D"
+        "https://modelosedam123.blob.core.windows.net/modelos/modelo_lstm_autoencoder.keras?sp=r&st=2025-05-12T04:37:44Z&se=2025-07-30T12:37:44Z&sip=3.16.76.120-190.236.243.188&spr=https&sv=2024-11-04&sr=b&sig=gVepnN4AP7P8XN7a1myawCJw8abdEFBKZwQwBxfLxn4%3D"
     )
     with tempfile.NamedTemporaryFile(delete=False, suffix=".keras") as tmp:
         tmp.write(requests.get(url).content)
