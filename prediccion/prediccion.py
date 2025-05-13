@@ -5,10 +5,9 @@ load_dotenv()                                 # ← Carga variables de entorno
 import smtplib                                 # ← Añadido para SMTP
 from email.mime.text import MIMEText           # ← Añadido
 from email.mime.multipart import MIMEMultipart # ← Añadido
-import tensorflow import
 import numpy as np
 import pandas as pd
-import streamlit as 
+import streamlit as st
 from tensorflow.keras.models import load_model
 from conexion import obtener_conexion
 import matplotlib.pyplot as plt
