@@ -159,15 +159,12 @@ def mostrar_seguimiento():
 
     # ─── Checkbox “Activar Notificaciones” con texto blanco y fondo transparente ───
     activar_notificaciones = st.checkbox("🔔 Activar Notificaciones", value=True)
-    # ─── CSS para forzar texto blanco en el label del checkbox ───
     st.markdown("""
     <style>
-      /* El texto del segundo div dentro del label (donde está el texto) en blanco */
       .stCheckbox label > div:nth-child(2) {
         color: white !important;
         font-weight: bold !important;
       }
-      /* El fondo y padding del checkbox transparentes */
       .stCheckbox > div {
         background-color: transparent !important;
         padding: 0 !important;
@@ -175,7 +172,6 @@ def mostrar_seguimiento():
       }
     </style>
     """, unsafe_allow_html=True)
-    # ────────────────────────────────────────────────────────────────────────────────
 
     # Sincronizar y obtener datos
     sincronizar_datos()
@@ -242,25 +238,49 @@ def mostrar_seguimiento():
           "comentarios": nuevo_comentario
         })
 
-    # Botón de actualizar y notificaciones condicionales
+    # 🔁 MODIFICADO: Botón de actualizar y notificaciones resumidas
     if st.button("Actualizar Estado"):
         correos = obtener_correos_destino()
         cambios_guardados = 0
+        cambios_relevantes = []
+
         for idx, cambio in enumerate(cambios):
             orig = df.iloc[idx]
-            if (cambio["estado"] != orig["estado"] or
+            hubo_cambio = (
+                cambio["estado"] != orig["estado"] or
                 (orig["comentarios"] or "") != (cambio["comentarios"] or "") or
-                (orig["fecha_resolucion"] != cambio["fecha_resolucion"])):
+                (orig["fecha_resolucion"] != cambio["fecha_resolucion"])
+            )
+            if hubo_cambio:
                 insertar_actualizar_filtracion(**cambio)
                 cambios_guardados += 1
-                # Solo enviar correo si está activo
-                if activar_notificaciones:
-                    for dest in correos:
-                        enviar_notificacion(cambio["codigo"], cambio["estado"], cambio["comentarios"], dest)
+
+                if cambio["estado"] in ["Proceso", "Resuelta"]:
+                    cambios_relevantes.append(cambio)
+
+        if activar_notificaciones and cambios_relevantes:
+            cuerpo = "🔔 Se han actualizado las siguientes filtraciones:\n\n"
+            for c in cambios_relevantes:
+                cuerpo += f"""• Código: {c["codigo"]}
+  Estado: {c["estado"]}
+  Comentarios: {c["comentarios"] or "—"}
+  Fecha de actualización: {datetime.now().strftime('%Y-%m-%d %H:%M')}\n\n"""
+
+            for destino in correos:
+                msg = MIMEMultipart()
+                msg["From"] = SMTP_USER
+                msg["To"] = destino
+                msg["Subject"] = "Resumen de actualizaciones de filtraciones"
+                msg.attach(MIMEText(cuerpo, "plain"))
+
+                with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
+                    server.starttls()
+                    server.login(SMTP_USER, SMTP_PASS)
+                    server.send_message(msg)
 
         if cambios_guardados:
             msg = f"¡{cambios_guardados} cambios guardados"
-            if activar_notificaciones:
+            if activar_notificaciones and cambios_relevantes:
                 msg += " y notificados!"
             else:
                 msg += "!"

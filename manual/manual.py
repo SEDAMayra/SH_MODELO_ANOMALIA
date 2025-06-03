@@ -5,5 +5,5 @@ def mostrar_manual():
     st.write("Aquí puedes ver el video del manual con los controles predeterminados.")
 
     # Cargar el video localmente usando Streamlit
-    st.video('imagenes/Video.mp4')
+    st.video('imagenes/Videoo.mp4')
 

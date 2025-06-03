@@ -27,6 +27,8 @@ SMTP_PASS   = os.getenv("SMTP_PASS")      # contraseña de aplicación
 # ---------------------------------------------------
 # 1) Funciones de notificación por correo
 # ---------------------------------------------------
+
+
 def obtener_correos_destino():
     """Lee todos los emails de la tabla usuarios"""
     conn = obtener_conexion()
@@ -142,6 +144,24 @@ def guardar_archivo(df, tipo):
 def mostrar_carga_datos():
     st.title("Cargar y Procesar Datos para Predicción")
 
+    # ───────────────────────────────────────────────
+    # Validamos si se cambió de módulo
+    # ───────────────────────────────────────────────
+    modulo_actual = 'cargar_datos'
+    modulo_anterior = st.session_state.get('modulo_actual')
+
+    if modulo_anterior != modulo_actual:
+        # Si viene de otro módulo, limpiamos los estados previos
+        st.session_state['archivo_cargado'] = False
+        st.session_state['archivo'] = None
+        st.session_state['data_path'] = None
+
+    # Actualizamos el módulo actual
+    st.session_state['modulo_actual'] = modulo_actual
+
+    # ───────────────────────────────────────────────
+    # Comprobamos si ya se ha cargado un archivo antes
+    # ───────────────────────────────────────────────
     if 'archivo_cargado' not in st.session_state:
         st.session_state['archivo_cargado'] = False
 
@@ -171,15 +191,12 @@ def mostrar_carga_datos():
                 if archivo:
                     df = leer_dbf(archivo)
                     if df is not None:
-                        # — procesamos datos
                         df_procesado   = procesar_datos(df)
                         insertados     = insertar_clientes(df_procesado)
                         df_normalizado = normalizar_datos(df_procesado)
 
-                        # — guardamos CSV
                         file_name = guardar_archivo(df_normalizado, "data_final_con_normalizado")
 
-                        # — estado de sesión
                         st.session_state['data_path']           = os.path.join(output_dir, file_name)
                         st.session_state['prediccion_generada'] = False
                         st.session_state['archivo_nuevo']       = True
@@ -190,19 +207,15 @@ def mostrar_carga_datos():
                             unsafe_allow_html=True
                         )
 
-                        # ——————————
-                        # 📧  AQUÍ EMPIEZA EL BLOQUE DE NOTIFICACIÓN
-                        # ——————————
                         hora    = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                         asunto  = "✅ Carga de Datos Procesada"
                         cuerpo  = f"""
 Tu carga de datos se ha procesado correctamente.
 
 • Archivo generado: {file_name}
-• Registros insertados
+• Registros insertados: {insertados}
 • Fecha y hora: {hora}
 """
                         destinos = obtener_correos_destino()
                         enviar_notificacion_general(asunto, cuerpo, destinos)
                         st.success("✅ Notificación enviada por correo a todos los usuarios.")
-                        # ——————————
