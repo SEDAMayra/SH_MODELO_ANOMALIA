@@ -183,10 +183,19 @@ def mostrar_seguimiento():
     # Asegurar visibilidad de botones
     st.markdown("""
     <style>
-      .stDownloadButton button, .stButton button {
-        color: black !important;
-        font-weight: bold;
-      }
+              div.stDownloadButton > button {
+            background-color: #0072C6;
+            color: white;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            margin: 5px;
+        }
+        div.stDownloadButton > button:hover {
+            background-color: #005999;
+            color: white;
+        }
     </style>
     """, unsafe_allow_html=True)
 

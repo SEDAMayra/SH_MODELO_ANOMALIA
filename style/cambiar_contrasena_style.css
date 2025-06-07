@@ -1,3 +1,8 @@
+label {
+    color: black !important;
+    font-size: 16px;
+}
+
 img {
     max-width: 100%; /* El logo no será más grande que el contenedor */
     height: auto;
@@ -51,4 +56,11 @@ header[data-testid="stHeader"] {
 /* Ocultar footer */
 footer {
     display: none;
+}
+
+/* Aquí agregas esto: */
+div.stAlert div {
+    color: black !important;
+    font-weight: bold;
+    font-size: 14px;
 }

@@ -1,17 +1,37 @@
 /* Cambiar el fondo de la página */
-/* Cambiar el color de las etiquetas (DNI, Contraseña) */
+/* Cambiar el color de las etiquetas (DNI, Contraseña, Correo, etc.) */
+
+/* Estilo para labels */
 label {
-    color: black; /* Cambiar color a negro */
-    font-size: 16px; /* Ajustar el tamaño de la fuente si es necesario */
+    color: black !important;
+    font-size: 16px;
 }
+
+/* Estilo para inputs */
+input {
+    color: black !important;
+    font-size: 16px;
+    background-color: #e6f3ff !important;
+}
+
+input:focus {
+    border: 2px solid #1f7aef !important;
+    outline: none !important;
+    box-shadow: 0 0 5px rgba(31, 122, 239, 0.5) !important;
+}
+
+div[data-testid="stForm"] > * {
+    margin-bottom: 15px;
+}
+
 html, body, [data-testid="stAppViewContainer"] {
     background-color: #0b5394; /* Color azul */
     height: 100%;
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center;  /* Centra horizontalmente */
-    align-items: center;      /* Centra verticalmente */
+    justify-content: center;
+    align-items: center;
 }
 
 section.main {
@@ -23,31 +43,18 @@ section.main {
     justify-content: center;
     align-items: center;
 }
+
 /* Estilo general del formulario */
 div[data-testid="stForm"] {
     background-color: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    width: 350px; /* Ajusta el ancho */
-    text-align: left; /* Ajusta la alineación a la izquierda */
-    margin: auto; /* Centra el formulario horizontalmente */
-}
-/* Estilo para los campos de texto */
-input {
-    color: black; /* Cambiar color del texto dentro del campo */
-    font-size: 16px;
-    background-color: #e6f3ff; /* Color claro de fondo en el campo de entrada */
+    width: 350px;
+    text-align: left;
+    margin: auto;
 }
 
-input:focus {
-    border: 2px solid #1f7aef; /* Borde azul brillante cuando está enfocado */
-    outline: none;
-    box-shadow: 0 0 5px rgba(31, 122, 239, 0.5); /* Efecto de resplandor alrededor */
-}
-div[data-testid="stForm"] > * {
-    margin-bottom: 15px; /* Añade un espacio entre cada campo */
-}
 /* Ajusta el espaciado de los enlaces */
 a {
     color: #1f7aef;
@@ -55,13 +62,13 @@ a {
     font-size: 14px;
 }
 a:hover {
-    text-decoration: underline; /* Añade un subrayado al pasar el cursor */
-}
-img {
-    max-width: 100%; /* El logo no será más grande que el contenedor */
-    height: auto;
+    text-decoration: underline;
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+}
 
 /* Ocultar la cabecera de Streamlit */
 header[data-testid="stHeader"] {
@@ -71,4 +78,17 @@ header[data-testid="stHeader"] {
 /* Ocultar el footer */
 footer {
     display: none;
+}
+
+/*----------- */
+
+footer {
+    display: none;
+}
+
+/* Aquí agregas esto: */
+div.stAlert div {
+    color: black !important;
+    font-weight: bold;
+    font-size: 14px;
 }

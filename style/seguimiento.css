@@ -1,3 +1,4 @@
+
 /* Fila de encabezado */
 .header-row {
     display: flex;
@@ -46,4 +47,5 @@
     font-size: 16px; /* Un poquito más grande para mejor visibilidad */
     padding: 10px 5px; /* <--- más espacio dentro de cada título */
 }
+
 

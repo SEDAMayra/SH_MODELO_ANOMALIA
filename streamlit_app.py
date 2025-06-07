@@ -16,10 +16,6 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-# Opcionalmente también:
-SMTP_SERVER = os.getenv("SMTP_SERVER", "smtp.gmail.com")
-SMTP_PORT   = int(os.getenv("SMTP_PORT", 587))
-
 # Configuration de la página
 st.set_page_config(page_title="EPS SEDAM Huancayo", page_icon=":droplet:", layout="centered", initial_sidebar_state="collapsed")
 
