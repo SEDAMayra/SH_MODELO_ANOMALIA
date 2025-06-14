@@ -140,9 +140,26 @@ def guardar_archivo(df, tipo):
     df.to_csv(os.path.join(output_dir, file_name), index=False)
     return file_name
 
+def reproducir_sonido_fin():
+    st.components.v1.html("""
+    <html>
+      <body>
+        <script>
+          var audio = new Audio("https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg");
+          audio.play();
+        </script>
+      </body>
+    </html>
+    """, height=0)
+
+
+
 # Interfaz principal
 def mostrar_carga_datos():
     st.title("Cargar y Procesar Datos para Predicción")
+
+    # 🔊 Checkbox para activar sonido al finalizar
+    activar_sonido = st.checkbox("🔊 Activar notificación sonora al finalizar", value=True)
 
     # ───────────────────────────────────────────────
     # Validamos si se cambió de módulo
@@ -219,3 +236,7 @@ Tu carga de datos se ha procesado correctamente.
                         destinos = obtener_correos_destino()
                         enviar_notificacion_general(asunto, cuerpo, destinos)
                         st.success("✅ Notificación enviada por correo a todos los usuarios.")
+
+                        # 🔊 Reproducir sonido si está activado
+                        if activar_sonido:
+                            reproducir_sonido_fin()
