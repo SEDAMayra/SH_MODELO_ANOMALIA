@@ -155,7 +155,7 @@ def grafico_tiempo_promedio(df):
 
 # 8) Función principal
 def mostrar_seguimiento():
-    st.subheader("Estado de filtraciones identificadas por la predicción")
+    st.subheader("Estado de filtraciones identificadas por la detección")
 
     # ─── Checkbox “Activar Notificaciones” con texto blanco y fondo transparente ───
     activar_notificaciones = st.checkbox("🔔 Activar Notificaciones", value=True)

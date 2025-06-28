@@ -24,6 +24,11 @@ def mostrar_mapa_calor():
     st.title("Mapa de Calor de Filtraciones de Agua (Clientes con Anomalía)")
     
     df = obtener_datos()
+    
+    if df.empty:
+        st.warning("⚠️ No se encontraron datos con anomalías en la última predicción.")
+        return
+    
     colors = df['impacto']
     sizes = np.where(df['error_reconstruccion'] > df['threshold'], 100, 50)  
     
@@ -33,12 +38,10 @@ def mostrar_mapa_calor():
     umbral = df['threshold'].iloc[0]
     ax.axhline(umbral, color="blue", linestyle="--", label=f"Umbral = {umbral:.2e}")
     
-    # Anotar cada punto con el valor de 'error_reconstruccion'
     for i, txt in enumerate(df['error_reconstruccion']):
         ax.annotate(f"{txt:.2e}", (df['codcliente'].iloc[i], df['error_reconstruccion'].iloc[i] + 1e-7),
                     color="black", ha='center', fontsize=9)
     
-    # Ajuste de los códigos de cliente en entero en el eje X
     ax.set_xticks(df['codcliente'])
     ax.set_xticklabels(df['codcliente'].astype(int), rotation=45)
     
@@ -49,5 +52,3 @@ def mostrar_mapa_calor():
     ax.legend()
     
     st.pyplot(fig)
-
-

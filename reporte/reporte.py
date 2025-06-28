@@ -90,16 +90,16 @@ def mostrar_historial_mes_actual():
     df["Precisión"] = obtener_precision_ultima_prediccion()
     df["Volumen Actual"] = df["volumen_le"].astype(str) + "L"
     df["Fecha de Lectura"] = pd.to_datetime(df["fecha_emis"]).dt.strftime("%d/%m/%Y")
-    df["Fecha de Predicción"] = pd.to_datetime(df["fecha_prediccion"]).dt.strftime("%d/%m/%Y")
+    df["Fecha de Detección"] = pd.to_datetime(df["fecha_prediccion"]).dt.strftime("%d/%m/%Y")
 
     # Creamos una copia solo para mostrar (renombrada)
     df_vista = df[[
         "codcliente", "direccion", "Fecha de Lectura", "Volumen Actual",
-        "Severidad", "Precisión", "Fecha de Predicción"
+        "Severidad", "Precisión", "Fecha de Detección"
     ]].copy()
     df_vista.columns = [
         "Código de Cliente", "Dirección", "Fecha de Lectura",
-        "Volumen Actual", "Severidad", "Precisión", "Fecha de Predicción"
+        "Volumen Actual", "Severidad", "Precisión", "Fecha de detección"
     ]
 
     # --- Estilos ---
@@ -182,7 +182,7 @@ def guardar_en_historial(df):
             row["Volumen Actual"],
             row["Severidad"],
             row["Precisión"],
-            datetime.strptime(row["Fecha de Predicción"], "%d/%m/%Y").date()
+            datetime.strptime(row["Fecha de detección"], "%d/%m/%Y").date()
         ))
 
     conn.commit()
@@ -215,14 +215,14 @@ def obtener_datos_periodo(fecha_prediccion):
     return df
 
 def mostrar_comparacion_periodos():
-    st.subheader("Comparación de periodos de predicción")
+    st.subheader("Comparación de periodos de detección")
     if 'resumen_comparacion' not in st.session_state:
         st.session_state['resumen_comparacion'] = None
 
     fecha_1 = st.date_input("Selecciona la fecha del Periodo 1", key="fecha_prediccion_1")
     fecha_2 = st.date_input("Selecciona la fecha del Periodo 2", key="fecha_prediccion_2")
 
-    if st.button("Comparar Fechas de Predicción", key="btn_comparar_fechas"):
+    if st.button("Comparar Fechas de detección", key="btn_comparar_fechas"):
         df1 = obtener_datos_periodo(fecha_1)
         df2 = obtener_datos_periodo(fecha_2)
 
@@ -232,14 +232,14 @@ def mostrar_comparacion_periodos():
 
         resumen = pd.DataFrame([
             {
-                "Fecha de Predicción": df1["fecha_prediccion"].iloc[0].strftime("%Y-%m-%d"),
+                "Fecha de detección": df1["fecha_prediccion"].iloc[0].strftime("%Y-%m-%d"),
                 "Fecha de Lectura": pd.to_datetime(df1["fecha_emis"].iloc[0]).strftime("%B").capitalize(),
                 "Total Filtraciones Detectadas": int(df1["total_fugas"].sum()),
                 "Precisión del Modelo (%)": f"{df1['precision'].mean() * 100:.0f}",
                 "Alertas Críticas": obtener_alertas_criticas_por_fecha(fecha_1)
             },
             {
-                "Fecha de Predicción": df2["fecha_prediccion"].iloc[0].strftime("%Y-%m-%d"),
+                "Fecha de detección": df2["fecha_prediccion"].iloc[0].strftime("%Y-%m-%d"),
                 "Fecha de Lectura": pd.to_datetime(df2["fecha_emis"].iloc[0]).strftime("%B").capitalize(),
                 "Total Filtraciones Detectadas": int(df2["total_fugas"].sum()),
                 "Precisión del Modelo (%)": f"{df2['precision'].mean() * 100:.0f}",
@@ -303,7 +303,7 @@ def mostrar_comparacion_periodos():
         c = canvas.Canvas(pdf_output, pagesize=landscape(letter))
         width, height = landscape(letter)
         c.setFont("Helvetica-Bold", 16)
-        c.drawString(200, height - 40, "Informe de Comparación de Predicción")
+        c.drawString(200, height - 40, "Informe de Comparación de Detección")
 
         data = [resumen.columns.tolist()] + resumen.values.tolist()
         table = Table(data, colWidths=[120] * len(data[0]))
@@ -370,7 +370,7 @@ def guardar_prediccion_resumen(total_fugas, precision, threshold, fecha_predicci
         conn.commit()
         conn.close()
     except Exception as e:
-        st.error(f"Error al guardar el resumen de la predicción en la base de datos: {e}")
+        st.error(f"Error al guardar el resumen de la detección en la base de datos: {e}")
 
 def actualizar_alertas_criticas():
     conn = obtener_conexion()

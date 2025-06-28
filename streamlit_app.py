@@ -281,7 +281,7 @@ def menu_principal():
     secciones = {
         "💻 Manual": mostrar_manual,
         "📤 Carga de datos": mostrar_carga_datos,
-        "📈 Predicción": mostrar_prediccion,
+        "📈 Detección": mostrar_prediccion,
         "🗺️ Mapa de calor de filtraciones": mostrar_mapa_calor,
         "📊 Gráfico de barras": mostrar_grafico_barras,
         "📑 Reporte": mostrar_reporte,

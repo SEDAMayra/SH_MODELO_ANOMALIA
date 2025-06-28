@@ -58,7 +58,7 @@ def enviar_notificacion_general(asunto: str, cuerpo: str, destinos: list[str]):
 def cargar_modelo():
     url = (
         "https://modelosedam123.blob.core.windows.net/modelos/modelo_lstm_autoencoder.keras?sp=r&st=2025-05-12T04:37:44Z&se=2025-07-30T12:37:44Z&sip=3.16.76.120-190.236.243.188&spr=https&sv=2024-11-04&sr=b&sig=gVepnN4AP7P8XN7a1myawCJw8abdEFBKZwQwBxfLxn4%3D"
-        #"https://modelosedam123.blob.core.windows.net/modelos/modelo_lstm_autoencoder.keras?sp=r&st=2025-06-03T02:34:57Z&se=2025-07-15T10:34:57Z&sip=190.236.168.224&spr=https&sv=2024-11-04&sr=b&sig=eYwOx3r1ELgioK9gq5RlAg0Rr4KAHrZFvSBGNfx91sE%3D"
+        ##"https://modelosedam123.blob.core.windows.net/modelos/modelo_lstm_autoencoder.keras?sp=r&st=2025-06-28T14:39:16Z&se=2025-07-30T22:39:16Z&sip=190.238.254.125&spr=https&sv=2024-11-04&sr=b&sig=kilXV3OaKT6DjlWsr9uLDPpf23VtmGdsELEriovU5bM%3D"
     )
     with tempfile.NamedTemporaryFile(delete=False, suffix=".keras") as tmp:
         tmp.write(requests.get(url).content)
@@ -108,7 +108,7 @@ def guardar_prediccion_resumen(total_fugas, precision, threshold, fecha_predicci
         conn.commit()
         conn.close()
     except Exception as e:
-        st.error(f"Error al guardar el resumen de la predicción en la base de datos: {e}")
+        st.error(f"Error al guardar el resumen de la detección en la base de datos: {e}")
 
 def obtener_precision_ultima_prediccion():
     try:
@@ -195,7 +195,7 @@ def mostrar_prediccion():
 
     # Si hay datos nuevos, mostrar botón
     if st.session_state.get("data_path") and st.session_state["archivo_nuevo"]:
-        if st.button("Generar Predicción"):
+        if st.button("Generar Detección"):
             ejecutar_prediccion()
 
             # —— AÑADIDO: notificación tras predicción —— 
@@ -204,9 +204,9 @@ def mostrar_prediccion():
             precision    = st.session_state['precision_modelo']
             umbral       = st.session_state['threshold']
 
-            asunto = "Predicción completada en EPS SEDAM"
+            asunto = "Detección completada en EPS SEDAM"
             cuerpo = f"""
-✅ La predicción se ha ejecutado correctamente.
+✅ La Detección se ha ejecutado correctamente.
 
 • Fecha y hora: {hora}
 • Total de filtraciones detectadas: {total_fugas}
@@ -233,14 +233,14 @@ Puedes revisar los resultados en la plataforma.
     if st.session_state["prediccion_generada"]:
         mostrar_resultados()
     else:
-        st.info("Por favor, carga un archivo para activar la predicción.")
+        st.info("Por favor, carga un archivo para activar la detección.")
 
 def mostrar_resultados():
     if "fecha_prediccion" in st.session_state:
         fecha_str = st.session_state["fecha_prediccion"].strftime("%d/%m/%Y %H:%M")
         st.markdown(
             f"<p style='font-size:16px; color:white;'>"
-            f"🗓️ Predicción del: <strong>{fecha_str}</strong></p>",
+            f"🗓️ Detección del: <strong>{fecha_str}</strong></p>",
             unsafe_allow_html=True
         )
 

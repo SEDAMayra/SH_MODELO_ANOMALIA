@@ -156,7 +156,7 @@ def reproducir_sonido_fin():
 
 # Interfaz principal
 def mostrar_carga_datos():
-    st.title("Cargar y Procesar Datos para Predicción")
+    st.title("Cargar y Procesar Datos para la detección")
 
     # 🔊 Checkbox para activar sonido al finalizar
     activar_sonido = st.checkbox("🔊 Activar notificación sonora al finalizar", value=True)
